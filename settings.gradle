@@ -3,8 +3,7 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-        jcenter() // Warning: this repository is going to shut down soon
     }
 }
-rootProject.name = "Ludo King"
-include ':app'
+rootProject.name = "Ludo King By Diwas"
+include ':app', ':controller-app'

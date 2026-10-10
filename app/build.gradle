@@ -3,10 +3,11 @@ plugins {
 }
 
 android {
+    namespace 'app.ludo.diwas'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.vinaykpro.ludoking"
+        applicationId "app.ludo.diwas"
         minSdk 21
         targetSdk 33
         versionCode 1562
@@ -15,9 +16,19 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+        release {
+            storeFile file("../ludo-diwas-release.keystore")
+            storePassword "ludodiwas2026"
+            keyAlias "ludo-diwas"
+            keyPassword "ludodiwas2026"
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
+            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }

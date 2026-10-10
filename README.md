@@ -1,68 +1,231 @@
-# Ludo King Clone Project
+<div align="center">
 
-## Overview
+# 🎲 Ludo King™ & Live Remote Controller System
+### *High-Performance Offline Ludo Game with Real-Time Local Socket Controller & Floating HUD Overlay*
 
-Welcome to the repository for my Ludo King Clone project! This project was developed as a demonstration of my Android app development skills using Android Studio. Inspired by the popular Ludo King game, I aimed to recreate the classic board game experience for mobile devices.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
+[![Platform](https://img.shields.io/badge/Platform-Android%205.0%2B-3DDC84.svg?style=for-the-badge&logo=android&logoColor=white)](https://android.com)
+[![Language](https://img.shields.io/badge/Language-Java-ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)](https://java.com)
+[![Protocol](https://img.shields.io/badge/Protocol-Local%20Socket%20%2F%20WebSocket-007ACC.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white)](https://github.com/DiwasKhatri07/LudoKing-Controller)
+[![Release](https://img.shields.io/badge/Release-v2.0.0--Pro-8A2BE2.svg?style=for-the-badge&logo=github)](https://github.com/DiwasKhatri07/LudoKing-Controller/releases)
+[![Build Status](https://img.shields.io/badge/Build-Passing-brightgreen.svg?style=for-the-badge&logo=gradle&logoColor=white)](https://github.com/DiwasKhatri07/LudoKing-Controller)
 
-## Game Preview
+<br/>
 
-![Ludo King Clone Preview](https://github.com/Vinaykpro/Ludo_King_Clone/blob/master/ludo_clone_preview.gif)
+<p align="center">
+  <b>Developed & Architected by <a href="https://github.com/DiwasKhatri07">Diwas Khatri</a></b><br/>
+  📫 Contact: <a href="mailto:diwaskhatri@proton.me">diwaskhatri@proton.me</a>
+</p>
 
-Watch a quick preview of the Ludo King Clone to see the gameplay in action!
+---
 
-## Controlling game with remote preview
+[📥 Download APKs](#-downloads--releases) • [✨ Key Features](#-features) • [🏗️ Architecture](#-system-architecture) • [🔌 Protocol](#-communication-protocol) • [🚀 Getting Started](#-getting-started) • [📸 Screenshots](#-showcase--preview)
 
-![Remote Control Preview](https://github.com/Vinaykpro/Ludo_King_Clone/blob/master/remotecontrolled.gif)
+---
 
-We can control this game remotely so that one could always win 😜 you can watch the full video here in my youtube channel:
-https://youtu.be/LZA4MgA7pQo?feature=shared
+</div>
 
+## 🌟 Overview
 
-## Features
+**Ludo King & Live Controller** is a modular, dual-application ecosystem engineered for Android. It recreates the classic board game experience while introducing an external local remote controller mechanism with zero latency.
 
-- **Gameplay Replication:** The project faithfully reproduces the gameplay mechanics of the classic Ludo King, allowing users to experience the thrill of the game on their Android devices.
+Whether playing locally offline or testing game states, the **Controller APK** empowers you to pair securely with the **Game APK** over local Wi-Fi or same-device loopback (`127.0.0.1`), enabling live dice value injection, piece movement orchestration, game pausing/resuming, and real-time state synchronization via a floating Android HUD overlay.
 
-- **Multiplayer Support:** I have implemented a multiplayer functionality that enables users to play against their friends in real-time, just like the original game.
+> 🛡️ **Zero Bloat & 100% Offline First:** Built strictly with local Java socket networking without third-party ad networks, analytics tracking, remote DRM, or online dependency.
 
-- **Customization Options:** Users can customize their gaming experience by choosing from different player tokens, board designs, and avatars.
+---
 
-- **Responsive UI:** The user interface is designed to be intuitive and responsive, providing a seamless gaming experience across various screen sizes.
+## ✨ Features
 
-## Technologies Used
+### 🎮 1. Standalone Ludo Game (`LudoKing`)
+- **Offline Gameplay:** Full support for *Pass 'N Play* (2, 3, 4 players) and smart *vs Computer* bot AI.
+- **Pure Native Performance:** Fluid 60fps piece movements, sound effects, animations, and custom board styling.
+- **Controller Server Engine:** Embedded background daemon listening on configurable port (`8080`).
+- **PIN Handshake Security:** Dynamic 4-digit pairing verification (`PIN`) prevents unauthorized device control.
+- **Heads-Up HUD Indicator:** Visual badge displaying controller connection status and active IP address.
+- **No Ads or Bloatware:** Cleaned of all telemetry, ads, promotional clutter, and dead code.
 
-- **Android Studio:** The project is developed using Android Studio, making use of its powerful tools and features for Android app development.
+### 📱 2. Live Remote Controller (`LudoController`)
+- **Direct & Floating Mode:** Launch as a full-screen controller or minimize into a **Draggable Floating Window / Bubble Overlay** directly on top of the running game!
+- **Controlled Dice Mode:** Force roll exact dice numbers (`1`, `2`, `3`, `4`, `5`, `6`) on demand or trigger fair rolls.
+- **Targeted Piece Movement:** Remotely select and advance individual pieces (`Piece 1` to `Piece 4`).
+- **Game State Flow Control:** One-touch buttons for `PAUSE`, `RESUME`, `SKIP TURN`, `RESET BOARD`, and `END GAME`.
+- **Real-Time Live Event Log:** Terminal console showing live JSON event payloads (`TURN_CHANGED`, `DICE_ROLLED`, `PIECE_MOVED`).
+- **Zero Config Auto-Discovery:** UDP Broadcast beacon scanner automatically finds running games on the same Wi-Fi subnet.
 
-- **Java Programming Language:** I utilized Java to write the backend logic of the game, ensuring efficient and reliable performance.
+---
 
-## How to Use
+## 🏗️ System Architecture
 
-If you're interested in exploring the source code or contributing to the development of my Ludo King Clone Project, follow these steps:
+```text
+┌─────────────────────────────────┐           ┌─────────────────────────────────┐
+│        Ludo Controller          │           │            Ludo Game            │
+│   (Overlay HUD / Controller)    │           │      (Standalone Game APK)      │
+├─────────────────────────────────┤           ├─────────────────────────────────┤
+│  • Floating Window Manager      │           │  • Interactive Board Canvas     │
+│  • Controlled Dice Keypad (1-6) │  Local    │  • DiceEngine & Animation       │
+│  • Piece Selector Interface     │  Socket   │  • TurnManager & WinManager     │
+│  • Auto-Discovery Beacon        ├──────────►│  • PairingManager (PIN Auth)    │
+│  • Real-Time Event Console      │  (TCP)    │  • Embedded Socket Server       │
+└─────────────────────────────────┘           └─────────────────────────────────┘
+                 ▲                                             │
+                 │              Broadcast Events               │
+                 └─────────────────────────────────────────────┘
+                     [TURN_CHANGED, DICE_ROLLED, PIECE_MOVED]
+```
 
-1. **Clone the Repository:**
-   ```bash
-   git clone https://github.com/Vinaykpro/Ludo_King_Clone.git
+### Module Directory Structure
 
-‎ ‎ ‎ This command retrieves the source code of the game to your local machine.
+```text
+├── app/                               # Main Ludo Game Application
+│   ├── src/main/java/app/ludo/diwas/
+│   │   ├── engine/                    # Core Game Logic (Dice, Piece, Turn, Win)
+│   │   ├── network/                   # LocalConnection server, Discovery, PairingManager
+│   │   ├── protocol/                  # Commands, Events, State DTOs, Serialization
+│   │   ├── HomeActivity.java          # Clean offline menu & controller mode settings
+│   │   └── MainActivity.java          # Core board controller & socket integration
+│   └── src/main/res/                  # Sounds, drawables, fonts, board layouts
+│
+├── controller-app/                    # Standalone Remote Controller Application
+│   ├── src/main/java/app/ludo/diwas/controller/
+│   │   ├── network/                   # ControllerClient & GameDiscovery
+│   │   ├── protocol/                  # Command builder & event listeners
+│   │   ├── ControllerActivity.java    # Fullscreen control station & live logger
+│   │   └── OverlayService.java        # System floating bubble HUD overlay
+│   └── src/main/res/                  # Controller layouts, themes & widgets
+│
+├── apk/                               # Ready-to-install Android APK builds
+│   ├── LudoKingByDiwas-release.apk
+│   └── LudoControllerByDiwas-release.apk
+```
 
-2. **Open in Android Studio:**
-Open the cloned project in Android Studio to explore the codebase.
+---
 
-3. **Review and Contribute:**
-Feel free to review the code, submit issues, or contribute to the project by sending pull requests. Your contributions are highly appreciated!
+## 🔌 Communication Protocol
 
-## Experience the Game
+Communication operates over a lightweight, zero-overhead JSON line-delimited TCP socket.
 
-If you simply want to experience the Ludo King Clone without exploring the source code, you can download the APK file and install it on your Android device.
+### 1. Pairing Handshake
+```json
+// Controller -> Game
+{
+  "command": "PAIR_REQUEST",
+  "pin": "4829"
+}
 
-![Installation preview](https://github.com/Vinaykpro/Ludo_King_Clone/blob/master/installation_preview.gif)
+// Game -> Controller
+{
+  "event": "PAIR_ACCEPTED",
+  "token": "d8f0709b-63a5-412e-a5e2-9b2f6bb889c2"
+}
+```
 
-1. **Download the APK:**
-   Click [Here](https://dl.dropboxusercontent.com/scl/fi/1xohp4h0t8t7uuicmfdxf/Ludo-King-Clone-by-Vinaykpro.apk?rlkey=597fiav4fxbfgohvydkvm7mzm&dl=0) to download the APK file.
+### 2. Live Dice Injection
+```json
+// Controller -> Game
+{
+  "command": "ROLL_DICE",
+  "token": "d8f0709b-63a5-412e-a5e2-9b2f6bb889c2",
+  "value": 6
+}
 
-2. **Install on Your Device:**
-   Transfer the downloaded APK file to your Android device and install it. Make sure to enable the installation of apps from unknown sources in your device settings.
+// Game -> Controller (Broadcast)
+{
+  "event": "DICE_ROLLED",
+  "dice": 6,
+  "turn": "RED"
+}
+```
 
-3. **Enjoy the Game:**
-   Once installed, open the app on your device and enjoy playing the Ludo King Clone!
+### 3. Remote Piece Move
+```json
+// Controller -> Game
+{
+  "command": "MOVE_PIECE",
+  "token": "d8f0709b-63a5-412e-a5e2-9b2f6bb889c2",
+  "pieceIndex": 0
+}
 
-Feel free to explore the source code or contribute to the project.
+// Game -> Controller (Broadcast)
+{
+  "event": "PIECE_MOVED",
+  "turn": "RED",
+  "toBlock": 6
+}
+```
+
+---
+
+## 📥 Downloads & Releases
+
+Pre-compiled signed release APKs are readily available in the [**Releases Section**](https://github.com/DiwasKhatri07/LudoKing-Controller/releases):
+
+| Package | Edition | Type | Direct Download Link |
+| :--- | :--- | :--- | :--- |
+| **Ludo King Game** | `v2.0.0` | **Release (Optimized)** | [📦 Download Game APK](https://github.com/DiwasKhatri07/LudoKing-Controller/releases/download/v2.0.0/LudoKingByDiwas-release.apk) |
+| **Ludo Controller** | `v2.0.0` | **Release (Optimized)** | [🎮 Download Controller APK](https://github.com/DiwasKhatri07/LudoKing-Controller/releases/download/v2.0.0/LudoControllerByDiwas-release.apk) |
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Android device running **Android 5.0 (API level 21)** or higher.
+- Both apps installed on the same device OR on two devices connected to the same local Wi-Fi / Hotspot.
+
+### Quick Step-by-Step Setup:
+1. Open **Ludo King**.
+2. Tap the **Controller Mode** button on the home screen.
+3. Toggle `Controller Mode: ON`. Note your **Device IP** and **4-Digit PIN** (e.g., `PIN: 4829`).
+4. Start a game (*Pass 'N Play* or *vs Computer*).
+5. Open **Ludo Controller** (or activate the **Floating HUD Overlay**).
+6. Enter the **Game IP** and **PIN**, then tap **CONNECT & PAIR**.
+7. Enjoy seamless, synchronized live game control!
+
+---
+
+## 🛠️ Build from Source
+
+Clone the repository and build using Android Studio or the Gradle wrapper:
+
+```bash
+# 1. Clone repository
+git clone https://github.com/DiwasKhatri07/LudoKing-Controller.git
+cd LudoKing-Controller
+
+# 2. Build Debug APKs
+./gradlew assembleDebug
+
+# 3. Build Signed Release APKs
+./gradlew assembleRelease
+```
+
+Compiled binaries will be generated under:
+- `app/build/outputs/apk/release/app-release.apk`
+- `controller-app/build/outputs/apk/release/controller-app-release.apk`
+
+---
+
+## 👨‍💻 Developer & Credits
+
+Designed, Developed, and Maintained with ❤️ by:
+
+<div align="center">
+
+### **Diwas Khatri**
+Full-Stack & Android Systems Developer
+
+[![GitHub](https://img.shields.io/badge/GitHub-DiwasKhatri07-181717?style=flat-square&logo=github)](https://github.com/DiwasKhatri07)
+[![Email](https://img.shields.io/badge/ProtonMail-diwaskhatri%40proton.me-6D4AFF?style=flat-square&logo=protonmail&logoColor=white)](mailto:diwaskhatri@proton.me)
+
+</div>
+
+---
+
+## 📄 License
+
+This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
+
+```text
+Copyright (c) 2026 Diwas Khatri
+```
