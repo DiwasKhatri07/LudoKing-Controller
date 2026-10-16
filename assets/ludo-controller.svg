@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 210" role="img" aria-labelledby="title desc">
+  <title id="title">LudoKing Controller</title>
+  <desc id="desc">Animated local Ludo controller illustration with a game board, dice and connection pulse.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#111827"/><stop offset="1" stop-color="#312e81"/></linearGradient>
+    <linearGradient id="accent" x1="0" x2="1"><stop stop-color="#22d3ee"/><stop offset="1" stop-color="#a78bfa"/></linearGradient>
+    <filter id="shadow"><feDropShadow dx="0" dy="8" stdDeviation="8" flood-color="#000" flood-opacity=".35"/></filter>
+  </defs>
+  <rect width="760" height="210" rx="28" fill="url(#bg)"/>
+  <circle cx="675" cy="-10" r="130" fill="#7c3aed" opacity=".16"/>
+  <circle cx="80" cy="220" r="150" fill="#06b6d4" opacity=".10"/>
+  <g filter="url(#shadow)" transform="translate(42 38)">
+    <rect width="134" height="134" rx="18" fill="#f8fafc"/>
+    <path d="M67 13v108M13 67h108" stroke="#cbd5e1" stroke-width="18"/>
+    <path d="M67 13v108M13 67h108" stroke="#fff" stroke-width="4" opacity=".8"/>
+    <circle cx="32" cy="32" r="12" fill="#ef4444"/><circle cx="102" cy="32" r="12" fill="#22c55e"/>
+    <circle cx="32" cy="102" r="12" fill="#facc15"/><circle cx="102" cy="102" r="12" fill="#3b82f6"/>
+    <circle cx="67" cy="67" r="16" fill="#a78bfa"><animate attributeName="r" values="13;18;13" dur="1.8s" repeatCount="indefinite"/></circle>
+  </g>
+  <g transform="translate(232 55)">
+    <text x="0" y="38" fill="#f8fafc" font-family="system-ui,Segoe UI,sans-serif" font-size="38" font-weight="800">LudoKing</text>
+    <text x="2" y="76" fill="#67e8f9" font-family="system-ui,Segoe UI,sans-serif" font-size="27" font-weight="700">CONTROLLER</text>
+    <text x="3" y="111" fill="#cbd5e1" font-family="system-ui,Segoe UI,sans-serif" font-size="15">LOCAL PLAY · LIVE CONTROL · ZERO CLOUD</text>
+  </g>
+  <g transform="translate(620 48) rotate(12)" filter="url(#shadow)">
+    <rect width="74" height="74" rx="16" fill="#fff"/>
+    <circle cx="22" cy="22" r="7" fill="#111827"/><circle cx="52" cy="22" r="7" fill="#111827"/><circle cx="37" cy="37" r="7" fill="#111827"/><circle cx="22" cy="52" r="7" fill="#111827"/><circle cx="52" cy="52" r="7" fill="#111827"/>
+  </g>
+  <g fill="none" stroke="url(#accent)" stroke-width="3" stroke-linecap="round">
+    <path d="M530 122c28-18 52-18 78 0" stroke-dasharray="7 9"><animate attributeName="stroke-dashoffset" from="32" to="0" dur="1s" repeatCount="indefinite"/></path>
+    <path d="M530 140c28-18 52-18 78 0" stroke-dasharray="7 9" opacity=".55"><animate attributeName="stroke-dashoffset" from="32" to="0" dur="1s" begin=".2s" repeatCount="indefinite"/></path>
+  </g>
+</svg>

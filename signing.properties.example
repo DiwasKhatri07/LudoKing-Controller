@@ -1,0 +1,6 @@
+# Copy this file to signing.properties and fill in your local release keystore details.
+# Never commit signing.properties or the keystore.
+storeFile=../ludo-diwas-release.keystore
+storePassword=change-me
+keyAlias=ludo-diwas
+keyPassword=change-me

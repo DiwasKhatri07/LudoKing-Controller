@@ -2,6 +2,18 @@ plugins {
     id 'com.android.application'
 }
 
+// Release credentials stay outside Git. Use signing.properties or LUDO_* environment variables.
+def signingProperties = new Properties()
+def signingPropertiesFile = rootProject.file('signing.properties')
+if (signingPropertiesFile.exists()) {
+    signingPropertiesFile.withInputStream { signingProperties.load(it) }
+}
+def signingStoreFile = signingProperties.getProperty('storeFile') ?: System.getenv('LUDO_STORE_FILE')
+def signingStorePassword = signingProperties.getProperty('storePassword') ?: System.getenv('LUDO_STORE_PASSWORD')
+def signingKeyAlias = signingProperties.getProperty('keyAlias') ?: System.getenv('LUDO_KEY_ALIAS')
+def signingKeyPassword = signingProperties.getProperty('keyPassword') ?: System.getenv('LUDO_KEY_PASSWORD')
+def hasReleaseSigning = [signingStoreFile, signingStorePassword, signingKeyAlias, signingKeyPassword].every { it }
+
 android {
     namespace 'app.ludo.diwas.controller'
     compileSdk 33
@@ -18,17 +30,19 @@ android {
 
     signingConfigs {
         release {
-            storeFile file("../ludo-diwas-release.keystore")
-            storePassword "ludodiwas2026"
-            keyAlias "ludo-diwas"
-            keyPassword "ludodiwas2026"
+            if (hasReleaseSigning) {
+                storeFile rootProject.file(signingStoreFile)
+                storePassword signingStorePassword
+                keyAlias signingKeyAlias
+                keyPassword signingKeyPassword
+            }
         }
     }
 
     buildTypes {
         release {
             minifyEnabled false
-            signingConfig signingConfigs.release
+            if (hasReleaseSigning) signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }

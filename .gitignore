@@ -13,6 +13,7 @@ local.properties
 # Release keystores
 *.keystore
 *.jks
+signing.properties
 
 # APKs should be downloaded via GitHub Releases, keep repo lean & fast
 /apk/
