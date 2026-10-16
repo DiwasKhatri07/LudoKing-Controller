@@ -1,5 +1,14 @@
 # Repository metrics
 
-> This file is refreshed automatically by GitHub Actions approximately every 40 minutes.
+> Automatically refreshed by GitHub Actions. Last update: 2026-10-16 15:32 UTC
 
-The first scheduled run will populate the live repository numbers. See the [repository metrics workflow](workflows/metrics.yml) for the implementation.
+| Metric | Value |
+| --- | ---: |
+| Stars | 3 |
+| Forks | 1 |
+| Open issues | 0 |
+| Watchers | 0 |
+| Commits in the last 30 days | 2 |
+| Default branch | main |
+
+[View the repository on GitHub](https://github.com/DiwasKhatri07/LudoKing-Controller)
